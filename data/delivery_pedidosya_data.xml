@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Delivery Method -->
+        <record id="delivery_carrier_pedidosya_express" model="delivery.carrier">
+            <field name="name">PedidosYa Express (ASAP)</field>
+            <field name="delivery_type">pedidosya</field>
+            <field name="pedidosya_service_type">EXPRESS</field>
+            <field name="product_id" ref="delivery.product_product_delivery"/>
+        </record>
+        
+        <record id="delivery_carrier_pedidosya_scheduled" model="delivery.carrier">
+            <field name="name">PedidosYa Scheduled</field>
+            <field name="delivery_type">pedidosya</field>
+            <field name="pedidosya_service_type">SCHEDULED</field>
+            <field name="product_id" ref="delivery.product_product_delivery"/>
+        </record>
+    </data>
+</odoo>

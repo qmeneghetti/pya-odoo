@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_delivery_pedidosya_user,delivery.pedidosya.user,model_delivery_carrier,stock.group_stock_user,1,0,0,0
+access_delivery_pedidosya_manager,delivery.pedidosya.manager,model_delivery_carrier,stock.group_stock_manager,1,1,1,1
+access_pedidosya_webhook_config_user,pedidosya.webhook.config.user,model_pedidosya_webhook_config,stock.group_stock_user,1,0,0,0
+access_pedidosya_webhook_config_manager,pedidosya.webhook.config.manager,model_pedidosya_webhook_config,stock.group_stock_manager,1,1,1,1

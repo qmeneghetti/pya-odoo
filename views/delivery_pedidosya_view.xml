@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Delivery Carrier form view -->
+    <record id="view_delivery_carrier_form_with_pedidosya" model="ir.ui.view">
+        <field name="name">delivery.carrier.form.pedidosya</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='destination']" position="after">
+                <page string="PedidosYa Configuration" name="pedidosya_config" 
+                      attrs="{'invisible': [('delivery_type', '!=', 'pedidosya')]}">
+                    <group>
+                        <group string="API Configuration">
+                            <field name="pedidosya_api_key" 
+                                   attrs="{'required': [('delivery_type', '=', 'pedidosya')]}"/>
+                            <field name="pedidosya_api_secret" password="True"
+                                   attrs="{'required': [('delivery_type', '=', 'pedidosya')]}"/>
+                            <field name="pedidosya_environment"/>
+                            <field name="pedidosya_service_type"/>
+                        </group>
+                        <group string="Webhook Configuration">
+                            <field name="pedidosya_webhook_url" placeholder="https://yourdomain.com/pedidosya/webhook"/>
+                            <field name="pedidosya_webhook_key" password="True"/>
+                            <button name="pedidosya_configure_webhook" 
+                                    string="Configure Webhook" 
+                                    type="object" 
+                                    class="btn-primary"
+                                    attrs="{'invisible': [('pedidosya_webhook_url', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <group string="Token Information" col="4">
+                        <field name="pedidosya_token" readonly="1"/>
+                        <field name="pedidosya_token_expiry" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Settings form view -->
+    <record id="res_config_settings_view_form_pedidosya" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.pedidosya</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="delivery.res_config_settings_view_form_delivery"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='delivery']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="pedidosya_setting">
+                    <div class="o_setting_left_pane">
+                        <field name="module_delivery_pedidosya"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="module_delivery_pedidosya"/>
+                        <div class="text-muted">
+                            Use PedidosYa Courier API integration for managing shipments
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Product template form view -->
+    <record id="pedidosya_product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form.pedidosya</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_template_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='inventory']//group[@name='packaging']" position="inside">
+                <field name="pedidosya_product_type" 
+                       attrs="{'invisible': [('type', 'not in', ['product', 'consu'])]}"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Stock Picking form view extension -->
+    <record id="view_picking_form_pedidosya" model="ir.ui.view">
+        <field name="name">stock.picking.form.pedidosya</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='carrier_tracking_ref']" position="after">
+                <field name="pedidosya_confirmation_code" 
+                       attrs="{'invisible': [('carrier_id', '=', False)]}"/>
+                <field name="pedidosya_tracking_url" widget="url"
+                       attrs="{'invisible': [('pedidosya_tracking_url', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

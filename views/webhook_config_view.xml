@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Webhook Configuration Form View -->
+    <record id="view_pedidosya_webhook_config_form" model="ir.ui.view">
+        <field name="name">pedidosya.webhook.config.form</field>
+        <field name="model">pedidosya.webhook.config</field>
+        <field name="arch" type="xml">
+            <form string="PedidosYa Webhook Configuration">
+                <header>
+                    <button name="sync_to_pedidosya" string="Sync to PedidosYa" type="object" class="btn-primary"/>
+                    <button name="sync_from_pedidosya" string="Get from PedidosYa" type="object" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Production Webhook"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="carrier_id"/>
+                            <field name="is_test"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="webhook_url" placeholder="https://yourdomain.com/pedidosya/webhook"/>
+                            <field name="webhook_key" password="True"/>
+                            <field name="last_sync" readonly="1"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <p>
+                            <strong>Note:</strong> The webhook URL must be accessible from the internet for PedidosYa to send shipping status updates.
+                        </p>
+                        <p>
+                            When testing, you can use tools like ngrok to expose your local Odoo server to the internet.
+                        </p>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Webhook Configuration Tree View -->
+    <record id="view_pedidosya_webhook_config_tree" model="ir.ui.view">
+        <field name="name">pedidosya.webhook.config.tree</field>
+        <field name="model">pedidosya.webhook.config</field>
+        <field name="arch" type="xml">
+            <tree string="PedidosYa Webhook Configurations">
+                <field name="name"/>
+                <field name="carrier_id"/>
+                <field name="webhook_url"/>
+                <field name="is_test"/>
+                <field name="active"/>
+                <field name="last_sync"/>
+            </tree>
+        </field>
+    </record>
+    
+    <!-- Webhook Configuration Search View -->
+    <record id="view_pedidosya_webhook_config_search" model="ir.ui.view">
+        <field name="name">pedidosya.webhook.config.search</field>
+        <field name="model">pedidosya.webhook.config</field>
+        <field name="arch" type="xml">
+            <search string="Search Webhook Configurations">
+                <field name="name"/>
+                <field name="carrier_id"/>
+                <field name="webhook_url"/>
+                <filter string="Test" name="is_test" domain="[('is_test', '=', True)]"/>
+                <filter string="Production" name="is_prod" domain="[('is_test', '=', False)]"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Carrier" name="carrier" context="{'group_by': 'carrier_id'}"/>
+                    <filter string="Environment" name="environment" context="{'group_by': 'is_test'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Webhook Configuration Action -->
+    <record id="action_pedidosya_webhook_config" model="ir.actions.act_window">
+        <field name="name">PedidosYa Webhooks</field>
+        <field name="res_model">pedidosya.webhook.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_pedidosya_webhook_config_tree"/>
+        <field name="search_view_id" ref="view_pedidosya_webhook_config_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new PedidosYa webhook configuration
+            </p>
+            <p>
+                Webhook configurations allow PedidosYa to send shipping status updates to your Odoo server.
+            </p>
+        </field>
+    </record>
+    
+    <!-- Menu Item -->
+    <menuitem id="menu_pedidosya_webhook_config"
+              name="PedidosYa Webhooks"
+              parent="delivery.menu_delivery"
+              action="action_pedidosya_webhook_config"
+              sequence="30"/>
+</odoo>

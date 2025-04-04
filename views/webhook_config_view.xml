@@ -94,10 +94,14 @@
         </field>
     </record>
     
-    <!-- Menu Item -->
-    <menuitem id="menu_pedidosya_webhook_config"
-              name="PedidosYa Webhooks"
-              parent="delivery.menu_delivery"
-              action="action_pedidosya_webhook_config"
-              sequence="30"/>
+    <menuitem id="menu_pedidosya_main"
+          name="PedidosYa Shipping"
+          web_icon="pya-odoo,static/description/icon.png"
+          sequence="90"/>
+
+    <menuitem id="menu_pedidosya_webhook_config" 
+            name="PedidosYa Webhooks" 
+            parent="menu_pedidosya_main" 
+            action="action_pedidosya_webhook_config" 
+            sequence="10"/>
 </odoo>

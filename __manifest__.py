@@ -18,8 +18,8 @@
     - Automatic status updates through webhooks
     - Coverage checks
     """,
-    'author': 'Your Company',
-    'website': 'https://www.yourcompany.com',
+    'author': 'Asteroid OMNI',
+    'website': 'https://asteroid.cx',
     'depends': ['delivery', 'stock', 'sale'],
     'data': [
         'security/ir.model.access.csv',
@@ -27,6 +27,7 @@
         'views/res_config_settings_views.xml',
         'data/delivery_pedidosya_data.xml',
     ],
+    'images': ['static/description/icon.png'],
     'installable': True,
     'application': False,
     'auto_install': False,

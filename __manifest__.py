@@ -24,7 +24,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/delivery_pedidosya_view.xml',
-        'views/res_config_settings_views.xml',
+        'views/webhook_config_view.xml',
         'data/delivery_pedidosya_data.xml',
     ],
     'images': ['static/description/icon.png'],

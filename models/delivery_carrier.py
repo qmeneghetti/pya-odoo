@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 class DeliveryPedidosYa(models.Model):
     _inherit = 'delivery.carrier'
 
-    delivery_type = fields.Selection(selection_add=[('pedidosya', 'PedidosYa')])
+    delivery_type = fields.Selection(selection_add=[('pedidosya', 'PedidosYa')], ondelete={'pedidosya': 'set default'})
     pedidosya_api_key = fields.Char(string='API Key', help='PedidosYa API Key')
     pedidosya_api_secret = fields.Char(string='API Secret', help='PedidosYa API Secret')
     pedidosya_token = fields.Char(string='Auth Token', readonly=True, help='PedidosYa authentication token')
